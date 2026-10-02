@@ -1,0 +1,59 @@
+{
+  "name": "Aaron Yu",
+  "role": "Student · Auckland Grammar School · 5th Form, 5B",
+  "intro": "I am a student, saxophonist, gamer, and French learner based in Auckland.",
+  "focus": [
+    {
+      "title": "Saxophone",
+      "text": "Playing with Auckland Grammar's Concert Band, Symphony Orchestra, and Big Band."
+    },
+    {
+      "title": "French",
+      "text": "Building confidence in French at B1 level."
+    },
+    {
+      "title": "Good games",
+      "text": "Making time for Minecraft, Brawl Stars, and games with friends."
+    }
+  ],
+  "opportunities": [
+    {
+      "type": "Music",
+      "title": "Performance & music opportunities",
+      "text": "Concerts, workshops, and programmes to grow as a saxophonist.",
+      "status": "Watching"
+    },
+    {
+      "type": "Learning",
+      "title": "French language experiences",
+      "text": "Ways to practise French beyond the classroom.",
+      "status": "Exploring"
+    },
+    {
+      "type": "School",
+      "title": "Student projects",
+      "text": "New ideas, teams, and projects worth contributing to.",
+      "status": "Open"
+    }
+  ],
+  "weekly": [
+    {
+      "number": "01",
+      "title": "A place to keep moving",
+      "text": "Notes on what I am learning, playing, and paying attention to each week.",
+      "date": "Coming soon"
+    },
+    {
+      "number": "02",
+      "title": "In the practice room",
+      "text": "Small discoveries from rehearsals and making music with other people.",
+      "date": "Coming soon"
+    },
+    {
+      "number": "03",
+      "title": "Worth sharing",
+      "text": "Games, ideas, and moments from the week that stayed with me.",
+      "date": "Coming soon"
+    }
+  ]
+}
