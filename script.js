@@ -7,6 +7,16 @@ async function loadContent() {
 function renderContent(content) {
   document.title = content.name;
   document.querySelector("#intro").textContent = content.intro;
+  document.querySelector("#school-name").textContent = content.school;
+  document.querySelector("#school-year").textContent = content.year;
+  document.querySelector("#class-name").textContent = content.class;
+  document.querySelector("#now-list").innerHTML = content.now.map((item, index) => `
+    <article class="now-card now-card-${index + 1}">
+      <span>${item.label}</span>
+      <h3>${item.title}</h3>
+      <p>${item.text}</p>
+      <b aria-hidden="true">0${index + 1}</b>
+    </article>`).join("");
   document.querySelector("#focus-list").innerHTML = content.focus.map((item, index) => `
     <article class="focus-item">
       <span class="focus-number">0${index + 1}</span>

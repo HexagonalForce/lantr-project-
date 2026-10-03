@@ -1,7 +1,22 @@
 {
   "name": "Aaron Yu",
   "role": "Student · Auckland Grammar School · 5th Form, 5B",
-  "intro": "I am a student, saxophonist, gamer, and French learner based in Auckland.",
+  "intro": "Student, saxophonist, gamer, and French learner based in Auckland.",
+  "school": "Auckland Grammar School",
+  "year": "5th Form",
+  "class": "5B",
+  "now": [
+    {
+      "label": "Making music",
+      "title": "Saxophone across three ensembles",
+      "text": "Concert Band, Symphony Orchestra, and Big Band."
+    },
+    {
+      "label": "Learning",
+      "title": "French at B1 level",
+      "text": "Building vocabulary, confidence, and conversation skills at school."
+    }
+  ],
   "focus": [
     {
       "title": "Saxophone",
@@ -39,7 +54,7 @@
   "weekly": [
     {
       "number": "01",
-      "title": "A place to keep moving",
+      "title": "The first note",
       "text": "Notes on what I am learning, playing, and paying attention to each week.",
       "date": "Coming soon"
     },
