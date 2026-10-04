@@ -5,6 +5,58 @@
   "school": "Auckland Grammar School",
   "year": "5th Form",
   "class": "5B",
+  "kumon": {
+    "level": "N level maths",
+    "status": "Kumon worker status",
+    "location": "More coming!"
+  },
+  "games": [
+    {
+      "name": "Roblox",
+      "url": "https://www.roblox.com/share?code=5c216cceee8d604c91e74170f3c36472&type=Profile&source=ProfileShare&stamp=1791155913181"
+    },
+    {
+      "name": "Brawl Stars",
+      "url": "https://link.brawlstars.com/?supercell_id&p=07-c853767a-cd61-468b-b17c-789e91a7c64c"
+    },
+    {
+      "name": "Minecraft",
+      "url": null,
+      "note": "More coming!"
+    }
+  ],
+  "contact": [
+    {
+      "name": "Phone",
+      "label": "027 272 6963",
+      "url": "tel:0272726963"
+    },
+    {
+      "name": "YouTube",
+      "label": "@HexagonalForceYT",
+      "url": "https://www.youtube.com/@HexagonalForceYT"
+    },
+    {
+      "name": "Email",
+      "label": "aaronyu042011@gmail.com",
+      "url": "mailto:aaronyu042011@gmail.com"
+    },
+    {
+      "name": "Instagram",
+      "label": "@justaaronz",
+      "url": "https://www.instagram.com/justaaronz"
+    },
+    {
+      "name": "TikTok",
+      "label": "@dogmanthehyena",
+      "url": "https://www.tiktok.com/@dogmanthehyena"
+    },
+    {
+      "name": "Discord",
+      "label": "Join the server",
+      "url": "https://discord.gg/GNdtwnYJ"
+    }
+  ],
   "now": [
     {
       "label": "Making music",
