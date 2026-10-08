@@ -1,0 +1,6 @@
+Age: 15
+City: Auckland, New Zealand
+Interests:
+Music and jazz
+Maths and sciences
+Gaming on mobile and PC

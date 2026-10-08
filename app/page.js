@@ -24,6 +24,10 @@ export default function Home() {
       <header className="compact-header">
         <a className="wordmark" href="#top" aria-label="Aaron Yu home">AY<span>.</span></a>
         <p>Personal corner of the internet · Auckland</p>
+        <nav className="site-menu" aria-label="Main navigation">
+          <a href="/">Home</a>
+          <a href="/opportunities">Opportunities</a>
+        </nav>
         <button className="warm-toggle" type="button" onClick={() => setWarm((current) => !current)} aria-pressed={warm}>
           <span aria-hidden="true">{warm ? "Sun" : "Moon"}</span> {warm ? "Cool mode" : "Warm mode"}
         </button>

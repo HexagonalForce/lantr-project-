@@ -1,0 +1,13 @@
+{
+  "name": "aaron-opportunities-agent",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@openai/agents": "^0.3.4",
+    "zod": "^3.24.2"
+  }
+}
