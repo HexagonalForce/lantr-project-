@@ -2,6 +2,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Aaron Yu",
+  keywords: ["Auckland", "music", "maths", "opportunities"],
   description: "Aaron Yu — student, saxophonist, gamer, and French learner."
 };
 
