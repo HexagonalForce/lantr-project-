@@ -15,8 +15,10 @@ loadDotEnv(path.join(here, ".env"));
 
 const apiKey = process.env.OPENAI_API_KEY;
 const agentSecret = process.env.AGENT_SECRET;
-if (!apiKey || !agentSecret) {
-  throw new Error("OPENAI_API_KEY and AGENT_SECRET must be set in agent/.env.");
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+if (!apiKey || !agentSecret || !supabaseUrl || !supabaseServiceKey) {
+  throw new Error("OPENAI_API_KEY, AGENT_SECRET, SUPABASE_URL, and SUPABASE_SERVICE_KEY must be set in agent/.env.");
 }
 if (!existsSync(path.join(here, "interests.txt"))) {
   throw new Error("agent/interests.txt is required.");
@@ -111,6 +113,51 @@ function verifyResult(job, result) {
   };
 }
 
+async function saveOpportunity(job, opportunity) {
+  const response = await fetch(`${supabaseUrl.replace(/\/$/, "")}/rest/v1/opportunities?on_conflict=url`, {
+    method: "POST",
+    headers: {
+      apikey: supabaseServiceKey,
+      Authorization: `Bearer ${supabaseServiceKey}`,
+      "Content-Type": "application/json",
+      Prefer: "resolution=ignore-duplicates,return=representation",
+    },
+    body: JSON.stringify({
+      title: opportunity.title,
+      url: opportunity.url,
+      source_excerpt: opportunity.sourceExcerpt,
+      why_it_fits: opportunity.whyItFits,
+      status: "new",
+    }),
+    signal: job.controller.signal,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Supabase could not save ${opportunity.url}: ${await response.text()}`);
+  }
+
+  const rows = await response.json();
+  const saved = rows.length > 0;
+  console.log(`[${job.id}] update_site ${saved ? "saved" : "skipped duplicate"} ${opportunity.url}`);
+  return { saved, url: opportunity.url };
+}
+
+function makeUpdateSiteTool(job) {
+  return tool({
+    name: "update_site",
+    description: "Save one verified opportunity to the site. Duplicate URLs are skipped. This is called automatically after final verification.",
+    parameters: z.object({
+      title: z.string(),
+      url: z.string().min(8).describe("The opportunity URL, beginning with https:// or http://"),
+      sourceExcerpt: z.string(),
+      whyItFits: z.string(),
+    }),
+    async execute(opportunity) {
+      return JSON.stringify(await saveOpportunity(job, opportunity));
+    },
+  });
+}
+
 function makeOpenPageTool(job) {
   return tool({
     name: "open_page",
@@ -174,6 +221,7 @@ function makeAgent(job, interests) {
     tools: [
       webSearchTool({ searchContextSize: "low", userLocation: { type: "approximate", city: "Auckland", country: "NZ" } }),
       makeOpenPageTool(job),
+      makeUpdateSiteTool(job),
     ],
     outputType: resultSchema,
     instructions: `You research current opportunities for this student:\n${interests}\n\nToday is 7 October 2026 in Auckland, New Zealand. Find up to five suitable current competitions, programmes, or events. You must do web search first. For every item you might accept, use open_page on an official organizer page after search. Verify from that official page: age limits or school-year eligibility, location or online availability for Auckland, New Zealand, and a clear statement that applications or registration are open now. Include an item only if you actually checked that official page and the page provides all three kinds of evidence. A historical page, an annual event with no 2026 date, a future event with no current registration proof, or a past deadline must go in ruledOut.\n\nFor each accepted item, sourceExcerpt must be a short exact excerpt (at most 35 words) that supports the age eligibility and current availability. Do not claim a registration is open unless the opened page explicitly says so. Never assume school, experience, eligibility, dates, or that a recurring event is running this year. If a page cannot be read, search for and read a different official source before accepting or rejecting the item. Return fewer than five when the evidence is insufficient. Explain rejected leads in ruledOut. Use no more than ${MAX_SEARCHES} web searches and ${MAX_PAGE_READS} open_page calls. Do not use open_page before web search. Focus on New Zealand and Auckland where possible. Return only the required structured result.`,
@@ -214,6 +262,9 @@ async function runJob(job) {
     } else {
       job.status = "done";
       job.result = verifyResult(job, streamed.finalOutput);
+      for (const opportunity of job.result.opportunities) {
+        await saveOpportunity(job, opportunity);
+      }
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : "The search failed.";
